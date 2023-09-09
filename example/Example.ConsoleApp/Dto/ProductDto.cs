@@ -3,5 +3,5 @@
 public class ProductDto
 {
     public string ProductName { get; set; }
-    public int Age { get; set; }
+    public decimal ProductPrice { get; set; }
 }
