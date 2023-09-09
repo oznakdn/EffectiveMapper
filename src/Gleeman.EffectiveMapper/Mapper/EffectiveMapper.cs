@@ -11,8 +11,8 @@ public class EffectiveMapper: IEffectiveMapper
     /// <param name="mapProperty">If properties is not match</param>
     /// <returns></returns>
     public TResult Map<TResult, TSource>(TSource source, Func<TSource, TResult> mapProperty = null) 
-    where TResult : class, new()
-    where TSource : class, new()
+    where TResult : class
+    where TSource : class
     {
         var result = Activator.CreateInstance<TResult>();
         foreach (var sourceProperty in typeof(TSource).GetProperties())
@@ -32,8 +32,8 @@ public class EffectiveMapper: IEffectiveMapper
     }
 
     public IEnumerable<TResult> Map<TResult, TSource>(IEnumerable<TSource> sources, Func<TSource, TResult> mapProperty = null)
-    where TResult : class, new()
-    where TSource : class, new()
+    where TResult : class
+    where TSource : class
     {
         return sources.Select(source => Map<TResult, TSource>(source, mapProperty)).ToList();
     }

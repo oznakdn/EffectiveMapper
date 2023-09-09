@@ -5,11 +5,13 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7778D914-1092-4F2C-92FD-B093527BC782}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gleeman.EffectiveMapper", "src\Gleeman.EffectiveMapper\Gleeman.EffectiveMapper.csproj", "{38AE614C-00A3-4AE6-B429-DB6323CA01D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gleeman.EffectiveMapper", "src\Gleeman.EffectiveMapper\Gleeman.EffectiveMapper.csproj", "{38AE614C-00A3-4AE6-B429-DB6323CA01D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "example", "example", "{74D05CCB-726E-45D6-84D9-2DD23626565F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.ConsoleApp", "example\Example.ConsoleApp\Example.ConsoleApp.csproj", "{AA2FF372-4059-4CB8-8F78-3549F8A95E05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.ConsoleApp", "example\Example.ConsoleApp\Example.ConsoleApp.csproj", "{AA2FF372-4059-4CB8-8F78-3549F8A95E05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Api", "example\Example.Api\Example.Api.csproj", "{7486858A-6EB4-42E6-B706-1A9C6BE04077}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{AA2FF372-4059-4CB8-8F78-3549F8A95E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA2FF372-4059-4CB8-8F78-3549F8A95E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA2FF372-4059-4CB8-8F78-3549F8A95E05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7486858A-6EB4-42E6-B706-1A9C6BE04077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7486858A-6EB4-42E6-B706-1A9C6BE04077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7486858A-6EB4-42E6-B706-1A9C6BE04077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7486858A-6EB4-42E6-B706-1A9C6BE04077}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +38,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{38AE614C-00A3-4AE6-B429-DB6323CA01D7} = {7778D914-1092-4F2C-92FD-B093527BC782}
 		{AA2FF372-4059-4CB8-8F78-3549F8A95E05} = {74D05CCB-726E-45D6-84D9-2DD23626565F}
+		{7486858A-6EB4-42E6-B706-1A9C6BE04077} = {74D05CCB-726E-45D6-84D9-2DD23626565F}
 	EndGlobalSection
 EndGlobal
