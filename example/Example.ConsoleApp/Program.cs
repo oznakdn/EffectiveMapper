@@ -26,7 +26,7 @@ var products = new List<Product>()
 
 ProductDto productDto = new()
 {
-    Name = "TestDto",
+    ProductName = "TestDto",
     Age = 20
 };
 
@@ -34,16 +34,25 @@ ProductDto productDto = new()
 
 IEffectiveMapper mapper = new EffectiveMapper();
 
-ProductDto dto = mapper.Map<ProductDto, Product>(product);
-Console.WriteLine($"ProductDto: {dto.Name} - {dto.Age}");
+ProductDto dto = mapper.Map<ProductDto, Product>(product, map => new ProductDto
+{
+    ProductName = product.Name
+});
+Console.WriteLine($"ProductDto: {dto.ProductName} - {dto.Age}");
 
 
-Product prod = mapper.Map<Product, ProductDto>(productDto);
+Product prod = mapper.Map<Product, ProductDto>(productDto,x=> new Product
+{
+    Name = x.ProductName
+});
 Console.WriteLine($"Product: {prod.Name} - {prod.Age}");
 
 
-IEnumerable<ProductDto> productsDto = mapper.Map<ProductDto, Product>(products);
+IEnumerable<ProductDto> productsDto = mapper.Map<ProductDto, Product>(products,x=> new ProductDto
+{
+    ProductName= product.Name
+});
 foreach (var item in productsDto)
 {
-    Console.WriteLine(item.Name + " " + item.Age);
+    Console.WriteLine(item.ProductName + " " + item.Age);
 }
