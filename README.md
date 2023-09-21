@@ -6,6 +6,11 @@
 ```
 ## How to use?
 
+### Program.cs
+```csharp
+builder.Services.AddEffectiveMapper();
+```
+
 ### When the entity and dto properties are the same.
 
 ```csharp
