@@ -12,22 +12,23 @@ namespace Example.Api.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IEffectiveMapper _effectiveMapper;
-
-        public ProductsController(IEffectiveMapper effectiveMapper)
+        private readonly AppDbContext _dbContext;
+        public ProductsController(IEffectiveMapper effectiveMapper, AppDbContext dbContext)
         {
             _effectiveMapper = effectiveMapper;
+            _dbContext = dbContext;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<GetProductsDto>> GetProducts()
         {
-            using AppDbContext dbContext = new();
-            IEnumerable<Product> products = dbContext.Products.ToList();
+
+            IEnumerable<Product> products = _dbContext.Products.ToList();
             IEnumerable<GetProductsDto> productsDto = _effectiveMapper.Map<GetProductsDto, Product>(products,p=> new GetProductsDto
             {
                 ProductId = p.Id,
-                ProductPrice = p.Price,
                 ProductName = p.ProductName,
+                ProductPrice = p.Price,
                 ProductQuantity = p.Quantity
             });
             return Ok(productsDto);
@@ -36,8 +37,8 @@ namespace Example.Api.Controllers
         [HttpGet("{id}")]
         public ActionResult<GetProductDto> GetProduct(int id)
         {
-            using AppDbContext dbContext = new();
-            Product product = dbContext.Products.SingleOrDefault(p => p.Id == id)!;
+
+            Product product = _dbContext.Products.SingleOrDefault(p => p.Id == id)!;
             if (product != null)
             {
                 GetProductDto productDto = _effectiveMapper.Map<GetProductDto, Product>(product);
@@ -50,26 +51,34 @@ namespace Example.Api.Controllers
         [HttpPost]
         public ActionResult<GetProductDto> CreateProduct(CreateProductDto createProduct)
         {
-            using AppDbContext dbContext = new();
-            Product product = _effectiveMapper.Map<Product, CreateProductDto>(createProduct);
-            dbContext.Products.Add(product);
-            dbContext.SaveChanges();
-            return Created("",createProduct);
+            if (ModelState.IsValid)
+            {
+                Product product = _effectiveMapper.Map<Product, CreateProductDto>(createProduct,p=> new Product
+                {
+                   ProductName = p.ProductName,
+                   Price = p.ProductPrice,
+                   Quantity = p.ProductQuantity
+                });
+                _dbContext.Products.Add(product);
+                _dbContext.SaveChanges();
+                return Created("", createProduct);
+            }
+            return BadRequest(ModelState.Select(e => e.Value.Errors).ToList());
         }
 
         [HttpPut("{id}")]
-        public ActionResult CreateProduct(int id,UpdateProductDto updateProduct)
+        public ActionResult UpdateProduct(int id, UpdateProductDto updateProduct)
         {
-            using AppDbContext dbContext = new();
-            var existProduct = dbContext.Products.SingleOrDefault(p => p.Id == id)!;
-            if(existProduct == null)
+
+            var existProduct = _dbContext.Products.SingleOrDefault(p => p.Id == id)!;
+            if (existProduct == null)
             {
                 return NotFound();
             }
 
             existProduct = _effectiveMapper.Map<Product, UpdateProductDto>(updateProduct);
-            dbContext.Entry(existProduct).State = EntityState.Modified;
-            dbContext.SaveChanges();
+            _dbContext.Entry(existProduct).State = EntityState.Modified;
+            _dbContext.SaveChanges();
             return NoContent();
         }
     }
