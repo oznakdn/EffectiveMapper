@@ -4,9 +4,13 @@
 ```
 > dotnet add package Gleeman.EffectiveMapper --version 1.0.0
 ```
-## How to use?
+## USAGE
 
 ### Program.cs
+
+```csharp
+using Gleeman.EffectiveMapper.Configuration;
+```
 ```csharp
 builder.Services.AddEffectiveMapper();
 ```
